@@ -1,0 +1,190 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>DexAfrica - STEM Platform</title>
+	<style>
+		:root{
+			--bg:#0f1724; --card:#0b1220; 
+            --muted:#9aa4b2; --accent:#4f46e5;
+             --glass:rgba(255,255,255,0.04);
+			--radius:12px; --max:1200px;
+		}
+		*{box-sizing:border-box}
+		body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			margin:0; background:linear-gradient(180deg,#071023 0%, #071322 100%); color:#e6eef6; -webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;}
+		.container{max-width:var(--max);margin:0 auto;padding:28px}
+
+		/* NAV */
+		.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;background:transparent}
+		.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+		.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:800;color:white}
+		.menu{display:flex;gap:18px;align-items:center}
+		.menu a{color:var(--muted);text-decoration:none;font-weight:600}
+		.cta{background:linear-gradient(90deg,var(--accent),#06b6d4);padding:10px 14px;border-radius:10px;color:#fff;text-decoration:none;font-weight:700}
+
+		/* HERO */
+		.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:28px}
+		.hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:34px;border-radius:var(--radius);box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+		h1{font-size:32px;margin:0 0 12px}
+		p.lead{color:var(--muted);margin:0 0 18px}
+		.search{display:flex;gap:8px}
+		.search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+		.search button{padding:12px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700}
+
+		/* HERO RIGHT - stats */
+		.stats{display:grid;gap:12px}
+		.stat{background:var(--glass);padding:16px;border-radius:12px;color:var(--muted);display:flex;align-items:center;justify-content:space-between}
+		.stat strong{color:#fff}
+
+		/* COURSES */
+		.courses{margin-top:36px}
+		.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+		.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
+		.card .meta{display:flex;align-items:center;gap:12px}
+		.thumb{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:800}
+		.card h3{margin:8px 0 6px;font-size:16px}
+		.card p{margin:0;color:var(--muted);font-size:14px}
+		.card footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+		.pill{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px}
+
+		/* RESPONSIVE */
+		@media (max-width:1000px){
+			.hero{grid-template-columns:1fr;}
+			.grid{grid-template-columns:repeat(2,1fr)}
+		}
+		@media (max-width:640px){
+			.container{padding:18px}
+			.menu{display:none}
+			.hero{gap:18px}
+			h1{font-size:24px}
+			.grid{grid-template-columns:1fr}
+			.logo{width:40px;height:40px}
+			.search{flex-direction:column}
+			.search button{width:100%}
+		}
+
+		/* small helpers */
+		.muted{color:var(--muted)}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<nav class="nav">
+			<div class="brand">
+				<div class="logo">D</div>
+				<div>
+					<div style="font-size:14px">DexAfrica</div>
+					<div style="font-size:12px;color:var(--muted);margin-top:2px">STEM Platform</div>
+				</div>
+			</div>
+			<div class="menu">
+				<a href="#">Home</a>
+				<a href="#courses">Courses</a>
+				<a href="#about">About</a>
+				<a href="#contact">Contact</a>
+				<a class="cta" href="#signup">Get Started</a>
+			</div>
+		</nav>
+
+		<section class="hero">
+			<div class="hero-card">
+				<h1>Welcome to DexAfrica STEM Platform</h1>
+				<h1>Learn Arduino and Robotics in Africa</h1>
+				<p class="lead">Hands-on STEM courses, projects and mentorship to power the next generation of African technologists.</p>
+				<div class="search" role="search">
+					<input aria-label="Search courses" placeholder="Search courses, topics or skills..." />
+					<button>Search</button>
+				</div>
+				<a class="cta" href="#courses" style="margin-top:18px;display:inline-block;">Start Learning</a>
+
+				<div class="courses" id="courses">
+					<h2 style="margin:18px 0 10px">Popular Courses</h2>
+					<div class="grid">
+						<article class="card">
+							<div class="meta">
+								<div class="thumb">AD</div>
+								<div>
+									<h3>Arduino Basics</h3>
+									<p class="muted">Circuit fundamentals, coding, and board setup.</p>
+									<a href="arduino_lessons.html" class="thumb">AD</a>
+								</div>
+							</div>
+							<footer>
+								<div class="pill">8 weeks</div>
+								<div class="muted">Free</div>
+							</footer>
+						</article>
+
+						<article class="card">
+							<div class="meta">
+								<div class="thumb">SN</div>
+								<div>
+									<h3>Sensors</h3>
+									<p class="muted">Learn sensor types, interfacing, and data collection.</p>
+								</div>
+							</div>
+							<footer>
+								<div class="pill">6 weeks</div>
+								<div class="muted">Free</div>
+							</footer>
+						</article>
+
+						<article class="card">
+							<div class="meta">
+								<div class="thumb">RB</div>
+								<div>
+									<h3>Robotics</h3>
+									<p class="muted">Design, build and program autonomous robotic systems.</p>
+								</div>
+							</div>
+							<footer>
+								<div class="pill">10 weeks</div>
+								<div class="muted">Paid</div>
+							</footer>
+						</article>
+
+						<article class="card">
+							<div class="meta">
+								<div class="thumb">BE</div>
+								<div>
+									<h3>Basic electronics</h3>
+									<p class="muted">Components, circuits, and practical electronics skills.</p>
+								</div>
+							</div>
+							<footer>
+								<div class="pill">8 weeks</div>
+								<div class="muted">Free</div>
+							</footer>
+						</article>
+
+						<article class="card">
+							<div class="meta">
+								<div class="thumb">AI</div>
+								<div>
+									<h3>AI Projects</h3>
+									<p class="muted">Build intelligent systems with practical, project-based AI.</p>
+								</div>
+							</div>
+							<footer>
+								<div class="pill">12 weeks</div>
+								<div class="muted">Paid</div>
+							</footer>
+						</article>
+					</div>
+				</div>
+			</div>
+
+			<aside class="stats">
+				<div class="stat"><div><div style="font-size:12px;color:var(--muted)">Students</div><strong>24,512</strong></div><div class="muted">+18% YoY</div></div>
+				<div class="stat"><div><div style="font-size:12px;color:var(--muted)">Courses</div><strong>86</strong></div><div class="muted">New content</div></div>
+				<div class="stat"><div><div style="font-size:12px;color:var(--muted)">Mentors</div><strong>120+</strong></div><div class="muted">Remote</div></div>
+			</aside>
+		</section>
+	</div>
+</body>
+</html>
+
