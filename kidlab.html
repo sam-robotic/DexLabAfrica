@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Lab Africa - STEM Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --purple: #a855f7;
+            --pink: #ec4899;
+            --cyan: #06b6d4;
+            --green: #10b981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(255, 107, 107, 0.2);
+            border-bottom: 2px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b6b, #ffe66d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #ff6b6b, #ffe66d);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .nav-links a:hover {
+            color: #ffe66d;
+            text-shadow: 0 0 10px rgba(255, 230, 109, 0.5);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ffe66d;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #a855f7 25%, #4ecdc4 50%, #ffe66d 75%, #ff6b6b 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+            display: grid;
+            place-items: center;
+            animation: pulseLogo 3s ease-in-out infinite;
+            z-index: 6;
+        }
+
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        @keyframes pulseLogo {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.08); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: white;
+            margin-bottom: 1rem;
+            animation: slideDown 1s ease;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            font-weight: 900;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: white;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 500;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .glow-btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .glow-btn-primary {
+            background: linear-gradient(135deg, #ff6b6b, #ec4899);
+            color: white;
+        }
+
+        .glow-btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(255, 107, 107, 0.8), 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        .glow-btn-secondary {
+            background: linear-gradient(135deg, #4ecdc4, #06b6d4);
+            color: white;
+        }
+
+        .glow-btn-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(78, 205, 196, 0.8), 0 10px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .float-icon {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .float-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .float-icon:nth-child(2) { right: 10%; top: 30%; animation-delay: 1s; }
+        .float-icon:nth-child(3) { left: 50%; top: 50%; animation-delay: 2s; }
+        .float-icon:nth-child(4) { right: 20%; bottom: 20%; animation-delay: 3s; }
+        .float-icon:nth-child(5) { left: 20%; bottom: 30%; animation-delay: 4s; }
+
+        section {
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ff6b6b, #ffe66d, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffe66d);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+        }
+
+        section:nth-child(even) {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(45, 45, 68, 0.9) 100%);
+        }
+
+        section:nth-child(odd) {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.9) 0%, rgba(44, 62, 80, 0.9) 100%);
+        }
+
+        .innovators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .student-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .student-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(255, 107, 107, 0.5), 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 230, 109, 0.6);
+        }
+
+        .student-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #a855f7, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .student-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+
+        .student-info {
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .student-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #ffe66d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .student-age {
+            font-size: 0.9rem;
+            color: #4ecdc4;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .student-achievement {
+            font-size: 0.95rem;
+            color: #ecf0f1;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+        }
+
+        .playground-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .playground-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .component-card {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(168, 85, 247, 0.2));
+            border: 2px solid rgba(78, 205, 196, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+            cursor: grab;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .component-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(78, 205, 196, 0.6);
+            border-color: rgba(255, 230, 109, 0.6);
+        }
+
+        .component-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .drop-zone {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border: 3px dashed rgba(255, 107, 107, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .drop-zone.dragover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(78, 205, 196, 0.3));
+            border-color: rgba(255, 230, 109, 0.8);
+            box-shadow: 0 0 40px rgba(255, 230, 109, 0.5);
+        }
+
+        .drop-zone h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .drop-zone p {
+            color: #ecf0f1;
+            font-size: 0.95rem;
+        }
+
+        .dropped-items {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: center;
+            min-height: 50px;
+        }
+
+        .dropped-item {
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+            animation: itemDrop 0.5s ease;
+        }
+
+        @keyframes itemDrop {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .check-btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .check-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 107, 107, 0.8);
+        }
+
+        .feedback {
+            display: none;
+            background: linear-gradient(135deg, #10b981, #06b6d4);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            font-weight: 700;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+            animation: popIn 0.5s ease;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(78, 205, 196, 0.5);
+            border-color: rgba(255, 230, 109, 0.6);
+        }
+
+        .video-frame {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-frame iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .video-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #ffe66d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .video-description {
+            font-size: 0.9rem;
+            color: #ecf0f1;
+            line-height: 1.4;
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .challenge-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+            border-color: rgba(255, 230, 109, 0.6);
+        }
+
+        .challenge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ec4899);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+        }
+
+        .stars {
+            color: #ffe66d;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .challenge-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #10b981, #06b6d4);
+            border: none;
+            color: white;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .challenge-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.8);
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .badge-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid rgba(255, 230, 109, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .badge-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 230, 109, 0.6);
+            border-color: rgba(255, 230, 109, 0.8);
+        }
+
+        .badge-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: badgeBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes badgeBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .badge-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .badge-desc {
+            font-size: 0.85rem;
+            color: #ecf0f1;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: white;
+            cursor: pointer;
+            perspective: 1000px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .fact-card:hover {
+            border-color: rgba(255, 230, 109, 0.6);
+        }
+
+        .fact-content {
+            text-align: center;
+            transition: all 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .fact-card:hover .fact-content {
+            transform: rotateY(180deg);
+        }
+
+        .fact-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+            backface-visibility: hidden;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 2px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6b6b, #ffe66d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .footer-text {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            color: #ecf0f1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff6b6b, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.8);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 230, 109, 0.2);
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .inspirational-message {
+            font-style: italic;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(44, 62, 80, 0.98);
+                flex-direction: column;
+                padding: 2rem 1rem;
+                gap: 1rem;
+                border-top: 2px solid rgba(255, 107, 107, 0.3);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero {
+                margin-top: 100px;
+            }
+
+            .playground-container {
+                grid-template-columns: 1fr;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><img src="dexlogo.jpeg" alt="DeXLab Africa logo"> Kids Lab Africa</div>
+        <ul class="nav-links">
+            <li><a href="welcome page.html">Welcome</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#playground">Kid Lab</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#challenges">Challenges</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-logo"><img src="dexlogo.jpeg" alt="DeXLab Africa logo"></div>
+        <div class="floating-icons">
+            <div class="float-icon">⚡</div>
+            <div class="float-icon">🤖</div>
+            <div class="float-icon">🔧</div>
+            <div class="float-icon">💡</div>
+            <div class="float-icon">🚀</div>
+        </div>
+        <div class="hero-content">
+            <h1>Welcome to Kids Lab Africa!</h1>
+            <p>Learn Robotics, Arduino, Coding & STEM Through Fun Adventures!</p>
+            <div class="hero-buttons">
+                <button class="glow-btn glow-btn-primary" onclick="scrollToSection('playground')">Start Learning</button>
+                <a href="#videos" class="glow-btn glow-btn-secondary">Watch Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="innovators">
+        <h2 class="section-title">Our Young Innovators</h2>
+        <div class="innovators-grid">
+            <div class="student-card">
+                <div class="student-image"><i class="fas fa-child"></i></div>
+                <div class="student-info">
+                    <div class="student-name">Amara</div>
+                    <div class="student-age">Age: 11</div>
+                    <div class="student-achievement">Built her first LED circuit and loves experimenting with sensors!</div>
+                    <span class="badge">🌟 LED Master</span>
+                </div>
+            </div>
+            <div class="student-card">
+                <div class="student-image"><i class="fas fa-child"></i></div>
+                <div class="student-info">
+                    <div class="student-name">Kofi</div>
+                    <div class="student-age">Age: 10</div>
+                    <div class="student-achievement">Coding enthusiast learning Arduino and building smart robots!</div>
+                    <span class="badge">🚀 Robot Builder</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="playground">
+        <h2 class="section-title">Interactive STEM Playground</h2>
+        <div class="playground-container">
+            <div class="components-grid">
+                <div class="component-card" draggable="true" ondragstart="dragStart(event)">
+                    <div class="component-icon">💡</div>
+                    <div class="component-name">LED</div>
+                </div>
+                <div class="component-card" draggable="true" ondragstart="dragStart(event)">
+                    <div class="component-icon">⊗</div>
+                    <div class="component-name">Resistor</div>
+                </div>
+                <div class="component-card" draggable="true" ondragstart="dragStart(event)">
+                    <div class="component-icon">🔊</div>
+                    <div class="component-name">Buzzer</div>
+                </div>
+                <div class="component-card" draggable="true" ondragstart="dragStart(event)">
+                    <div class="component-icon">📱</div>
+                    <div class="component-name">Arduino</div>
+                </div>
+                <div class="component-card" draggable="true" ondragstart="dragStart(event)">
+                    <div class="component-icon">🔘</div>
+                    <div class="component-name">Button</div>
+                </div>
+                <div class="component-card" draggable="true" ondragstart="dragStart(event)">
+                    <div class="component-icon">🔄</div>
+                    <div class="component-name">Servo Motor</div>
+                </div>
+            </div>
+            <div>
+                <div class="drop-zone" ondrop="dropComponent(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+                    <h3>Build Your Circuit</h3>
+                    <p>Drag components here to build your circuit!</p>
+                    <div class="dropped-items" id="droppedItems"></div>
+                </div>
+                <button class="check-btn" onclick="checkCircuit()">Check Circuit</button>
+                <div class="feedback" id="feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="videos">
+        <h2 class="section-title">Watch Real Kids Build Robots!</h2>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-frame"><iframe width="560" height="315" src="https://www.youtube.com/embed/yS7Yn9diD-g" allowfullscreen></iframe></div>
+                <div class="video-info">
+                    <div class="video-title">Building Your First LED Circuit</div>
+                    <div class="video-description">Learn the basics of circuits and LEDs in this beginner-friendly tutorial!</div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-frame"><iframe src="https://www.youtube.com/embed/jNQXAC9IVRw" allowfullscreen></iframe></div>
+                <div class="video-info">
+                    <div class="video-title">Arduino for Beginners</div>
+                    <div class="video-description">Your complete guide to programming microcontrollers and creating smart devices!</div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-frame"><iframe src="https://www.youtube.com/embed/9bZkp7q19f0" allowfullscreen></iframe></div>
+                <div class="video-info">
+                    <div class="video-title">Robotics Basics 101</div>
+                    <div class="video-description">Discover the fundamentals of robotics and create your first moving robot!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="challenges">
+        <h2 class="section-title">Fun Challenges</h2>
+        <div class="challenges-grid">
+            <div class="challenge-card">
+                <div class="challenge-icon">💡</div>
+                <div class="challenge-title">Light the LED</div>
+                <div class="difficulty">Beginner</div>
+                <div class="stars">⭐⭐⭐</div>
+                <p>Make an LED light up using a battery and circuit.</p>
+                <button class="challenge-btn" onclick="startChallenge('Light the LED')">Start Challenge</button>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">🚦</div>
+                <div class="challenge-title">Smart Traffic Light</div>
+                <div class="difficulty">Intermediate</div>
+                <div class="stars">⭐⭐⭐⭐</div>
+                <p>Build and program a traffic light system with Arduino.</p>
+                <button class="challenge-btn" onclick="startChallenge('Smart Traffic Light')">Start Challenge</button>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">🤖</div>
+                <div class="challenge-title">Make a Robot Wave</div>
+                <div class="difficulty">Intermediate</div>
+                <div class="stars">⭐⭐⭐⭐</div>
+                <p>Program a servo motor to make a robotic arm wave!</p>
+                <button class="challenge-btn" onclick="startChallenge('Make a Robot Wave')">Start Challenge</button>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">🔊</div>
+                <div class="challenge-title">Sound Sensor Challenge</div>
+                <div class="difficulty">Advanced</div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>Create a device that responds to sound with lights and movement.</p>
+                <button class="challenge-btn" onclick="startChallenge('Sound Sensor Challenge')">Start Challenge</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="badges">
+        <h2 class="section-title">Achievements & Badges</h2>
+        <div class="badges-grid">
+            <div class="badge-card"><div class="badge-icon">🏆</div><div class="badge-name">Junior Engineer</div><div class="badge-desc">Completed your first STEM project</div></div>
+            <div class="badge-card"><div class="badge-icon">💡</div><div class="badge-name">LED Master</div><div class="badge-desc">Built 5 LED circuits successfully</div></div>
+            <div class="badge-card"><div class="badge-icon">🤖</div><div class="badge-name">Robot Builder</div><div class="badge-desc">Created your first moving robot</div></div>
+            <div class="badge-card"><div class="badge-icon">🧪</div><div class="badge-name">STEM Explorer</div><div class="badge-desc">Completed 10 different experiments</div></div>
+            <div class="badge-card"><div class="badge-icon">⚙️</div><div class="badge-name">Arduino Beginner</div><div class="badge-desc">Wrote and uploaded your first Arduino code</div></div>
+            <div class="badge-card"><div class="badge-icon">🚀</div><div class="badge-name">Tech Champion</div><div class="badge-desc">Earned all badges and challenges</div></div>
+        </div>
+    </section>
+
+    <section id="facts">
+        <h2 class="section-title">Did You Know?</h2>
+        <div class="facts-grid">
+            <div class="fact-card"><div class="fact-content"><div class="fact-text">🤖 Robots can help doctors perform precise surgeries and farmers grow better crops!</div></div></div>
+            <div class="fact-card"><div class="fact-content"><div class="fact-text">💡 The first LED was invented in 1962 and is now used everywhere - from phones to cars!</div></div></div>
+            <div class="fact-card"><div class="fact-content"><div class="fact-text">🔧 Arduino boards are so affordable and easy to use that kids worldwide use them to create amazing projects!</div></div></div>
+            <div class="fact-card"><div class="fact-content"><div class="fact-text">🌍 Learning STEM today can help you become a scientist, engineer, or tech entrepreneur tomorrow!</div></div></div>
+            <div class="fact-card"><div class="fact-content"><div class="fact-text">⚡ Your smartphone has more computing power than all computers combined in the 1980s!</div></div></div>
+            <div class="fact-card"><div class="fact-content"><div class="fact-text">🚀 Africa is becoming a tech hub with amazing innovations happening right here on our continent!</div></div></div>
+        </div>
+    </section>
+
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-logo"><img src="dexlogo.jpeg" alt="DeXLab Africa logo"> Kids Lab Africa</div>
+            <div class="footer-text">Powered by <strong>DeXLab Africa</strong> - Robotics for African Kids & Youth</div>
+            <div class="social-links">
+                <div class="social-icon"><i class="fab fa-facebook"></i></div>
+                <div class="social-icon"><i class="fab fa-twitter"></i></div>
+                <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                <div class="social-icon"><i class="fab fa-youtube"></i></div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 KidsLab Africa powered by DexAfrica. All rights reserved.</p>
+                <p class="inspirational-message">"Every child can be a STEM genius! Dream big, build bigger, and change the world!" 🌍✨</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let draggedComponent = null;
+
+        function dragStart(event) {
+            draggedComponent = event.target.closest('.component-card');
+            event.dataTransfer.effectAllowed = 'copy';
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'copy';
+            event.currentTarget.classList.add('dragover');
+        }
+
+        function dragLeave(event) {
+            event.currentTarget.classList.remove('dragover');
+        }
+
+        function dropComponent(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('dragover');
+            if (draggedComponent) {
+                const componentName = draggedComponent.querySelector('.component-name').textContent;
+                const componentIcon = draggedComponent.querySelector('.component-icon').textContent;
+                const droppedItem = document.createElement('div');
+                droppedItem.className = 'dropped-item';
+                droppedItem.textContent = `${componentIcon} ${componentName}`;
+                document.getElementById('droppedItems').appendChild(droppedItem);
+            }
+        }
+
+        function checkCircuit() {
+            const droppedItems = document.getElementById('droppedItems');
+            const feedback = document.getElementById('feedback');
+            if (droppedItems.children.length > 0) {
+                feedback.textContent = '🎉 Awesome Job Future Engineer! Your circuit is building nicely!';
+                feedback.classList.add('show');
+                createConfetti();
+                setTimeout(() => feedback.classList.remove('show'), 3000);
+            } else {
+                feedback.textContent = '⚠️ Add some components first!';
+                feedback.classList.add('show');
+                setTimeout(() => feedback.classList.remove('show'), 2000);
+            }
+        }
+
+        function startChallenge(challengeName) {
+            alert(`🚀 Great! You're starting: "${challengeName}"\n\nCome back soon to complete this challenge!`);
+            createConfetti();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = '-10px';
+                confetti.style.background = ['#ff6b6b', '#ffe66d', '#4ecdc4', '#a855f7'][Math.floor(Math.random() * 4)];
+                confetti.style.animation = `confettiFall ${2 + Math.random() * 1}s ease-out forwards`;
+                confetti.style.delay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3500);
+            }
+        }
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.6s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.backgroundPosition = `center ${scrolled * 0.5}px`;
+        });
+    </script>
+</body>
+</html>
